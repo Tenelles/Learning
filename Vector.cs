@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-class Vector
+﻿class Vector
 {
     public float X { get; private set; }
     public float Y { get; private set; }

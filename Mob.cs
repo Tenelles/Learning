@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
- class Mob
+ class Mob : IMovable, IKillable
  {  
     // Переменные
     private int _hp;
@@ -33,6 +33,7 @@ using System.Text;
     {
         _position = position; // приватная позиция, т.к. публичная задана только для чтения
     }
+
     public void TakeDamage(int damage)
     {
         if (damage < 0)
@@ -44,5 +45,10 @@ using System.Text;
         if (healing < 0)
             throw new Exception("healing");
         HP += healing; // публичное хп, т.к. оно расписано и на чтение, и на изменение. Пользуемся свойством, чтобы добавленные в будущем проверки не опускались.
+    }
+
+    public void Death()
+    {
+        Console.WriteLine("OH NOOO");
     }
 }
