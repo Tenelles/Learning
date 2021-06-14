@@ -1,28 +1,34 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
  class Mob : IMovable, IKillable
  {  
     // Переменные
-    private int _hp;
-    private Vector _position;
+    private float _hp;
+    protected Vector _position;
 
     // Свойства
-    public int HP
+    public float HP
     {
         get => _hp;
-        private set => _hp = value; // изменение только внутри этого класса, для остальных только чтение.
-    }                               // расписано потому, что потом может понадобиться проверка.
+        protected set // изменение внутри этого класса и наследниках, для остальных только чтение.
+        {
+            if (value <= 0)
+                throw new Exception("hp");
+            _hp = value;
+            Console.WriteLine($"Now my HP is {HP}");
+            if (HP <= 0)
+                Console.WriteLine("I am dead");
+        }
+    }
     public Vector Position => _position; // read only, только чтение без изменений даже в этом классе.
 
     // Конструктор
-    public Mob(int hp)
+    public Mob(float hp)
     {
         _hp = hp;
         _position = Vector.Zero;
     }
-    public Mob(int hp, Vector position) // перегрузка конструктора
+    public Mob(float hp, Vector position) // перегрузка конструктора
     {
         _hp = hp;
         _position = position;
@@ -33,14 +39,12 @@ using System.Text;
     {
         _position = position; // приватная позиция, т.к. публичная задана только для чтения
     }
-
-    public void TakeDamage(int damage)
     {
         if (damage < 0)
             throw new Exception("damage");
         HP -= damage; // публичное хп, т.к. оно расписано и на чтение, и на изменение. Пользуемся свойством, чтобы добавленные в будущем проверки не опускались.
     }
-    public void TakeHealing(int healing)
+    public void TakeHealing(float healing)
     {
         if (healing < 0)
             throw new Exception("healing");
