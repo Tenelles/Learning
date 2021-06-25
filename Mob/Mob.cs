@@ -1,6 +1,6 @@
 ﻿using System;
 
- class Mob
+ class Mob : IMovable, IKillable
  {  
     // Переменные
     private float _hp;
@@ -39,7 +39,6 @@
     {
         _position = position; // приватная позиция, т.к. публичная задана только для чтения
     }
-    public void TakeDamage(float damage)
     {
         if (damage < 0)
             throw new Exception("damage");
@@ -50,5 +49,10 @@
         if (healing < 0)
             throw new Exception("healing");
         HP += healing; // публичное хп, т.к. оно расписано и на чтение, и на изменение. Пользуемся свойством, чтобы добавленные в будущем проверки не опускались.
+    }
+
+    public void Death()
+    {
+        Console.WriteLine("OH NOOO");
     }
 }

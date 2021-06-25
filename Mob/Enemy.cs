@@ -20,5 +20,4 @@ class Enemy : Mob
         }
     }
     public bool CanAttack(Mob mob) => Position == mob.Position; // Если позиция enemy равна позиции mob, то true, иначе false
-
 }
